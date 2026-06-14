@@ -175,12 +175,18 @@ const waitStart = setInterval(() => {
   }
 }, 50);
 
-// Click to add more
+// Click to add more (PC)
 canvas.addEventListener('click', (e) => {
-  // Don't spawn if dragging
   if (mc.body) return;
   spawnLogo(e.clientX, -60);
 });
+
+// Tap to add more (スマホ)
+canvas.addEventListener('touchend', (e) => {
+  e.preventDefault();
+  const touch = e.changedTouches[0];
+  spawnLogo(touch.clientX, -60);
+}, { passive: false });
 
 // Cap total bodies at 60
 Events.on(engine, 'afterUpdate', () => {
